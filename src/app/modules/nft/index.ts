@@ -16,8 +16,8 @@ export class NFTModule extends BaseModule {
 	public accountSchema = nftAccountSchema;
 	public transactionAssets: BaseAsset[];
 	public actions = {
-		getAllNFTTokens: async () => getAllNFTTokensFromStorage(this._dataAccess),
-		getNFTToken: async params =>
+		getAllNFTs: async () => getAllNFTTokensFromStorage(this._dataAccess),
+		getNFT: async params =>
 			getNFTTokenFromStorage((params as { id: string }).id, this._dataAccess),
 	};
 
