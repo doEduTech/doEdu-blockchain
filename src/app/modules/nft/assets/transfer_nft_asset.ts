@@ -1,14 +1,18 @@
 import { ApplyAssetContext, BaseAsset } from 'lisk-sdk';
 import { getAllNFTTokens, setAllNFTTokens } from '../data';
 import { NFTAccountProps } from '../schemas';
-import { TransferNftAsset, transferNftAssetSchema } from './schemas/transfer_nft_asset';
+import { TransferNFTTokenAssetProps, transferNftAssetSchema } from './schemas/transfer_nft_asset';
 
-export class TransferNFTAsset extends BaseAsset<TransferNftAsset> {
+export class TransferNFTAsset extends BaseAsset<TransferNFTTokenAssetProps> {
 	public name = 'transferNFT';
 	public id = 1;
 	public schema = transferNftAssetSchema;
 
-	public async apply({ asset, stateStore, transaction }: ApplyAssetContext<TransferNftAsset>) {
+	public async apply({
+		asset,
+		stateStore,
+		transaction,
+	}: ApplyAssetContext<TransferNFTTokenAssetProps>) {
 		const nftTokens = await getAllNFTTokens(stateStore);
 		const nftTokenIndex = nftTokens.findIndex(t => t.id.equals(asset.nftId));
 
@@ -16,6 +20,11 @@ export class TransferNFTAsset extends BaseAsset<TransferNftAsset> {
 			throw new Error('Token id not found');
 		}
 		const token = nftTokens[nftTokenIndex];
+
+		if (!token.transferable) {
+			throw new Error('It is a non-transferable NFT');
+		}
+
 		const tokenOwnerAddress = token.ownerAddress;
 		const { senderAddress } = transaction;
 

@@ -1,4 +1,4 @@
-export interface TransferNftAsset {
+export interface TransferNFTTokenAssetProps {
 	readonly nftId: Buffer;
 	readonly recipient: Buffer;
 	readonly name?: string;

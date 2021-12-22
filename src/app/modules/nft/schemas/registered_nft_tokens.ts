@@ -2,16 +2,20 @@ export interface NFT {
 	readonly id: Buffer;
 	readonly name: string;
 	readonly ownerAddress: Buffer;
-	readonly value: bigint;
-	readonly minPurchaseMargin: number;
+	readonly transferable: boolean;
+	readonly meta: Buffer;
+	readonly avatarHash: Buffer;
+	readonly contentHash: Buffer;
 }
 
 export interface NFTJson {
 	readonly id: string;
 	readonly name: string;
 	readonly ownerAddress: string;
-	readonly value: string;
-	readonly minPurchaseMargin: number;
+	readonly transferable: boolean;
+	readonly meta: string;
+	readonly avatarHash: string;
+	readonly contentHash: string;
 }
 
 export interface RegisteredNFTs {
@@ -21,7 +25,6 @@ export interface RegisteredNFTs {
 export interface RegisteredNFTsJson {
 	readonly registeredNFTTokens: NFTJson[];
 }
-
 
 export const registeredNFTTokensSchema = {
 	$id: 'lisk/nft/registeredTokens',
@@ -33,27 +36,42 @@ export const registeredNFTTokensSchema = {
 			fieldNumber: 1,
 			items: {
 				type: 'object',
-				required: ['id', 'value', 'ownerAddress', 'minPurchaseMargin', 'name'],
+				required: [
+					'id',
+					'name',
+					'ownerAddress',
+					'transferable',
+					'meta',
+					'avatarHash'
+				],
 				properties: {
 					id: {
 						dataType: 'bytes',
 						fieldNumber: 1,
 					},
-					value: {
-						dataType: 'uint64',
+					name: {
+						dataType: 'string',
 						fieldNumber: 2,
 					},
 					ownerAddress: {
 						dataType: 'bytes',
 						fieldNumber: 3,
 					},
-					minPurchaseMargin: {
-						dataType: 'uint32',
+					transferable: {
+						dataType: 'boolean',
 						fieldNumber: 4,
 					},
-					name: {
-						dataType: 'string',
+					meta: {
+						dataType: 'bytes',
 						fieldNumber: 5,
+					},
+					avatarHash: {
+						dataType: 'bytes',
+						fieldNumber: 6,
+					},
+					contentHash: {
+						dataType: 'bytes',
+						fieldNumber: 7,
 					},
 				},
 			},
