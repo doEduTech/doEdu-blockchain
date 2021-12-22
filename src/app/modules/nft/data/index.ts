@@ -1,5 +1,5 @@
-import { codec, cryptography, StateStore, BaseModuleDataAccess } from 'lisk-sdk';
-import { RegisteredNFTs, NFT, RegisteredNFTsJson, registeredNFTTokensSchema } from '../schemas';
+import { BaseModuleDataAccess, codec, cryptography, StateStore } from 'lisk-sdk';
+import { NFT, RegisteredNFTs, RegisteredNFTsJson, registeredNFTTokensSchema } from '../schemas';
 
 
 export const CHAIN_STATE_NFT_TOKENS = 'nft:registeredNFTTokens';
@@ -18,32 +18,15 @@ export const createNFTToken = (data: Omit<NFT, 'id'> & { nonce: bigint; senderAd
 
 export const getAllNFTTokens = async (stateStore: StateStore) => {
 	const registeredTokensBuffer = await stateStore.chain.get(CHAIN_STATE_NFT_TOKENS);
-	if (!registeredTokensBuffer) {
-		return [];
-	}
-
-	const registeredTokens = codec.decode<RegisteredNFTs>(
-		registeredNFTTokensSchema,
-		registeredTokensBuffer,
-	);
-
-	return registeredTokens.registeredNFTTokens;
-};
-
-export const getAllNFTTokensAsJSON = async (dataAccess: BaseModuleDataAccess) => {
-	const registeredTokensBuffer = await dataAccess.getChainState(CHAIN_STATE_NFT_TOKENS);
 
 	if (!registeredTokensBuffer) {
 		return [];
 	}
 
-	const registeredTokens = codec.decode<RegisteredNFTs>(
+	return (codec.decode<RegisteredNFTs>(
 		registeredNFTTokensSchema,
-		registeredTokensBuffer,
-	);
-
-	return codec.toJSON<RegisteredNFTsJson>(registeredNFTTokensSchema, registeredTokens)
-		.registeredNFTTokens;
+		registeredTokensBuffer
+	)).registeredNFTTokens;
 };
 
 export const setAllNFTTokens = async (stateStore: StateStore, NFTTokens: NFT[]) => {
@@ -56,3 +39,26 @@ export const setAllNFTTokens = async (stateStore: StateStore, NFTTokens: NFT[]) 
 		codec.encode(registeredNFTTokensSchema, registeredTokens),
 	);
 };
+
+
+export const getAllNFTTokensFromStorage = async (dataAccess: BaseModuleDataAccess) => {
+	const registeredTokensBuffer = await dataAccess.getChainState(CHAIN_STATE_NFT_TOKENS);
+
+	if (!registeredTokensBuffer) {
+		return [];
+	}
+
+	return codec.toJSON<RegisteredNFTsJson>(registeredNFTTokensSchema, registeredTokensBuffer)
+		.registeredNFTTokens
+};
+
+export const getNFTTokenFromStorage = async (id: string, dataAccess: BaseModuleDataAccess) => {
+	const tokens = await getAllNFTTokensFromStorage(dataAccess);
+
+	if(tokens.length === 0) {
+		return undefined;
+	}
+
+	return tokens.find(t => t.id === id);
+}
+

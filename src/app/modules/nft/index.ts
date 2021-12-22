@@ -1,6 +1,6 @@
 import { BaseModule, GenesisConfig, utils, BaseAsset } from 'lisk-sdk';
 import { nftAccountSchema, NFTModuleConfig } from './schemas/nft_account_props';
-import { getAllNFTTokensAsJSON } from './data';
+import { getAllNFTTokensFromStorage, getNFTTokenFromStorage } from './data';
 
 import { MintNFTAsset } from './assets/mint_nft_asset';
 import { TransferNFTAsset } from './assets/transfer_nft_asset';
@@ -16,8 +16,9 @@ export class NFTModule extends BaseModule {
 	public accountSchema = nftAccountSchema;
 	public transactionAssets: BaseAsset[];
 	public actions = {
-		// get all the registered NFT tokens from blockchain
-		getAllNFTTokens: async () => getAllNFTTokensAsJSON(this._dataAccess),
+		getAllNFTTokens: async () => getAllNFTTokensFromStorage(this._dataAccess),
+		getNFTToken: async params =>
+			getNFTTokenFromStorage((params as { id: string }).id, this._dataAccess),
 	};
 
 	public constructor(config: GenesisConfig) {

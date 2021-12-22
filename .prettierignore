@@ -9,6 +9,8 @@ data/
 logs/
 
 .gitkeep
+yarn.lock
+.tool-versions
 
 # rc files
 .*rc

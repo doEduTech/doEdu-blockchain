@@ -1,5 +1,5 @@
 export interface NFTModuleConfig {
-  readonly allowedMinters: Buffer[];
+	readonly allowedMinters: Buffer[];
 }
 
 export interface NFTAccountProps {
