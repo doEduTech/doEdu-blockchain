@@ -37,7 +37,7 @@
 		"doedu": "./bin/run"
 	},
 	"lisk": {
-		"addressPrefix": "lsk"
+		"addressPrefix": "DEDU"
 	},
 	"oclif": {
 		"bin": "doedu",
