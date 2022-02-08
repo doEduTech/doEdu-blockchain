@@ -35,7 +35,9 @@
 		"minRemainingBalance": "5000000",
 		"activeDelegates": 101,
 		"standbyDelegates": 2,
-		"delegateListRoundOffset": 2
+		"delegateListRoundOffset": 2,
+		"tipDepositAddress": "3ea5388145536c236ba84b4f6ba95a557a230f02",
+		"tipFeePercentage": 10
 	},
 	"forging": {
 		"force": true,

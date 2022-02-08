@@ -1,5 +1,7 @@
 export interface NFTModuleConfig {
 	readonly allowedMinters: Buffer[];
+	readonly tipDepositAddress: string;
+	readonly tipFeePercentage: number;
 }
 
 export interface NFTAccountProps {

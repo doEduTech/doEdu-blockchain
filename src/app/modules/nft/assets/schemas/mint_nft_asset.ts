@@ -8,7 +8,7 @@ export interface MintNFTTokenAssetProps {
 }
 
 export const mintNFTTokenSchema = {
-	$id: 'lisk/nft/create',
+	$id: 'doedu/nft/create',
 	type: 'object',
 	required: ['name', 'ownerAddress', 'transferable', 'meta', 'avatarHash', 'contentHash'],
 	properties: {
