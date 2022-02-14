@@ -6,7 +6,7 @@ export const calculateTip = (value: bigint, percentage: bigint) =>
 
 export class TipAsset extends BaseAsset<TipAssetProps> {
 	public name = 'tip';
-	public id = 0;
+	public id = 3;
 	public schema = tipAssetSchema;
 	public depositAddress: Buffer;
 	public feePercentage: bigint;
