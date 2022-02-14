@@ -24,7 +24,7 @@
 			{
 				"moduleID": 5,
 				"assetID": 0,
-				"baseFee": "1000000000"
+				"baseFee": "10"
 			}
 		],
 		"rewards": {
@@ -32,7 +32,7 @@
 			"offset": 2160,
 			"distance": 3000000
 		},
-		"minRemainingBalance": "5000000",
+		"minRemainingBalance": "10",
 		"activeDelegates": 101,
 		"standbyDelegates": 2,
 		"delegateListRoundOffset": 2,
