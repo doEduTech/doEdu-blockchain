@@ -5,7 +5,7 @@ export interface TransferNFTTokenAssetProps {
 }
 
 export const transferNftAssetSchema = {
-	$id: 'lisk/nft/transfer',
+	$id: 'doedu/nft/transfer',
 	type: 'object',
 	required: ['nftId', 'recipient'],
 	properties: {
