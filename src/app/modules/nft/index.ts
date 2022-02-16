@@ -49,12 +49,11 @@ export class NFTModule extends BaseModule {
 			throw new Error('Please provide tip fee percentage');
 		}
 
-		const allowedMinters = mergedNFTConfig.allowedMinters.map(k => Buffer.from(k, 'hex'));
 		const tipDepositAddress = Buffer.from(mergedNFTConfig.tipDepositAddress, 'hex');
 		this._tipFeePercentage = BigInt(mergedNFTConfig.tipFeePercentage);
 
 		this.transactionAssets = [
-			new MintNFTAsset(allowedMinters),
+			new MintNFTAsset(mergedNFTConfig.allowedMinters),
 			new TransferNFTAsset(),
 			new TipAsset(tipDepositAddress, this._tipFeePercentage),
 		];

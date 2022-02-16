@@ -32,7 +32,8 @@
 		"standbyDelegates": 2,
 		"delegateListRoundOffset": 2,
 		"tipDepositAddress": "3ea5388145536c236ba84b4f6ba95a557a230f02",
-		"tipFeePercentage": 10
+		"tipFeePercentage": 10,
+		"allowedMinters": ["ac33a54481849139c63478970ae72fcc02373408"]
 	},
 	"forging": {
 		"force": true,

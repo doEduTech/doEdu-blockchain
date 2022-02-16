@@ -7,16 +7,16 @@ export class MintNFTAsset extends BaseAsset<MintNFTTokenAssetProps> {
 	public name = 'mintNFT';
 	public id = 0;
 	public schema = mintNFTTokenSchema;
-	public allowedMinters: ReadonlyArray<Buffer>;
+	public allowedMinters: ReadonlyArray<string>;
 
-	public constructor(allowedMinters: ReadonlyArray<Buffer>) {
+	public constructor(allowedMinters: ReadonlyArray<string>) {
 		super();
 		this.allowedMinters = allowedMinters;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/require-await
 	public async validate({ transaction }: ValidateAssetContext<MintNFTTokenAssetProps>) {
-		if (!this.allowedMinters.includes(transaction.senderAddress)) {
+		if (!this.allowedMinters.includes(transaction.senderAddress.toString('hex'))) {
 			throw new Error(`Not an allowed minter: ${transaction.senderAddress.toString('hex')}`);
 		}
 	}
