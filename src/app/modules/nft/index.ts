@@ -20,9 +20,10 @@ export class NFTModule extends BaseModule {
 	public actions = {
 		getAllNFTs: async () => getAllNFTTokensFromStorage(this._dataAccess),
 		getNFT: async params => getNFTTokenFromStorage((params as { id: string }).id, this._dataAccess),
-		calculateTip: params => {
+		// eslint-disable-next-line @typescript-eslint/require-await
+		calculateTip: async params => {
 			const { amount } = params as { amount: string };
-			return calculateTip(BigInt(amount), this._tipFeePercentage);
+			return calculateTip(BigInt(amount), this._tipFeePercentage).toString();
 		},
 	};
 

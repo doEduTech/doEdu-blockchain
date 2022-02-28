@@ -28,11 +28,13 @@ export class MintNFTAsset extends BaseAsset<MintNFTTokenAssetProps> {
 	}: ApplyAssetContext<MintNFTTokenAssetProps>) {
 		const { senderAddress } = transaction;
 		const senderAccount = await stateStore.account.get<NFTAccountProps>(transaction.senderAddress);
-		const ownerAccount = await stateStore.account.get<NFTAccountProps>(asset.ownerAddress);
+		let ownerAccount: Unwrap<ReturnType<typeof stateStore.account.get>> & NFTAccountProps;
 
-		if (!ownerAccount) {
+		try {
+			ownerAccount = await stateStore.account.get<NFTAccountProps>(asset.ownerAddress);
+		} catch {
 			throw new Error(
-				`Can not mint nft. Owner address "${asset.ownerAddress.toString('hex')} does not exists."`,
+				`Can not mint nft. Owner address: ${asset.ownerAddress.toString('hex')} does not exists.`,
 			);
 		}
 
