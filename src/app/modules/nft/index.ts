@@ -1,8 +1,12 @@
 import { BaseAsset, BaseModule, GenesisConfig, utils } from 'lisk-sdk';
 import { MintNFTAsset } from './assets/mint_nft_asset';
-import { TipAsset, calculateTip } from './assets/tip_asset';
+import { calculateTip, TipAsset } from './assets/tip_asset';
 import { TransferNFTAsset } from './assets/transfer_nft_asset';
-import { getAllNFTTokensFromStorage, getNFTTokenFromStorage } from './data';
+import {
+	getAllNFTTokensFromStorage,
+	getNFTByTxIdFromStorage,
+	getNFTTokenFromStorage,
+} from './data';
 import { nftAccountSchema, NFTModuleConfig } from './schemas/nft_account_props';
 
 export const nftModuleParamsDefault: NFTModuleConfig = {
@@ -20,6 +24,8 @@ export class NFTModule extends BaseModule {
 	public actions = {
 		getAllNFTs: async () => getAllNFTTokensFromStorage(this._dataAccess),
 		getNFT: async params => getNFTTokenFromStorage((params as { id: string }).id, this._dataAccess),
+		getNFTByTxId: async params =>
+			getNFTByTxIdFromStorage((params as { id: string }).id, this._dataAccess),
 		// eslint-disable-next-line @typescript-eslint/require-await
 		calculateTip: async params => {
 			const { amount } = params as { amount: string };

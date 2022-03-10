@@ -1,5 +1,5 @@
 import { ApplyAssetContext, BaseAsset, ValidateAssetContext } from 'lisk-sdk';
-import { getAllNFTTokens, setAllNFTTokens, createNFTToken } from '../data';
+import { createNFTToken, getAllNFTTokens, setAllNFTTokens, setTxIndexForNFT } from '../data';
 import { NFTAccountProps } from '../schemas';
 import { MintNFTTokenAssetProps, mintNFTTokenSchema } from './schemas/mint_nft_asset';
 
@@ -53,5 +53,8 @@ export class MintNFTAsset extends BaseAsset<MintNFTTokenAssetProps> {
 		const allTokens = await getAllNFTTokens(stateStore);
 		allTokens.push(nftToken);
 		await setAllNFTTokens(stateStore, allTokens);
+
+		// Set NFT index for the transaction
+		await setTxIndexForNFT(transaction.id, nftToken.id, stateStore);
 	}
 }
