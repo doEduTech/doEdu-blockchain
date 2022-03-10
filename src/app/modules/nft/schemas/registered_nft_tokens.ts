@@ -36,7 +36,15 @@ export const registeredNFTTokensSchema = {
 			fieldNumber: 1,
 			items: {
 				type: 'object',
-				required: ['id', 'name', 'ownerAddress', 'transferable', 'meta', 'avatarHash'],
+				required: [
+					'id',
+					'name',
+					'ownerAddress',
+					'transferable',
+					'meta',
+					'avatarHash',
+					'contentHash',
+				],
 				properties: {
 					id: {
 						dataType: 'bytes',
